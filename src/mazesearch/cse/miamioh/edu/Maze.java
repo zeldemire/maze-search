@@ -3,6 +3,7 @@ package mazesearch.cse.miamioh.edu;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -119,6 +120,41 @@ public class Maze {
 		builder.append("\n");
 		// create the resulting string
 		return builder.toString();
+	}
+
+	public ArrayList<Node> getNeighbors(Node node, Set<Square> explored) {
+		ArrayList<Node> neighbors = new ArrayList<>();
+//		Square parent = new Square(node.getRow(), node.getCol());
+
+		// Check up
+		if (!isBlocked(new Square(node.getRow(), node.getCol() - 1))) {
+			if (!explored.contains(new Square(node.getRow(), node.getCol() - 1))) {
+				neighbors.add(new Node(node, node.getRow(), node.getCol() - 1));
+			}
+		}
+
+		// Check right
+		if (!isBlocked(new Square(node.getRow() + 1, node.getCol()))) {
+			if (!explored.contains(new Square(node.getRow() + 1, node.getCol()))) {
+				neighbors.add(new Node(node,node.getRow() + 1, node.getCol()));
+			}
+		}
+
+		// Check down
+		if (!isBlocked(new Square(node.getRow(), node.getCol() + 1))) {
+			if (!explored.contains(new Square(node.getRow(), node.getCol() + 1))) {
+				neighbors.add(new Node(node, node.getRow(), node.getCol() + 1));
+			}
+		}
+
+		// Check left
+		if (!isBlocked(new Square(node.getRow() - 1, node.getCol()))) {
+			if (!explored.contains(new Square(node.getRow() - 1, node.getCol()))) {
+				neighbors.add(new Node(node, node.getRow() - 1, node.getCol()));
+			}
+		}
+
+		return neighbors;
 	}
 }
 
